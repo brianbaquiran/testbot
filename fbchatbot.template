@@ -8,7 +8,7 @@
          "AvailabilityZone" : "ap-southeast-1a",
          "ImageId" : "ami-7243e611",
          "InstanceType": "t2.micro",
-         "SubnetId": "subnet-214f9845"
+         "SubnetId": "subnet-214f9845",
      }
    },
     "BotInstanceEIP": {
@@ -28,6 +28,7 @@
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
         "GroupDescription" : "Enable SSH access via port 22",
+        "VpcId": "vpc-2923694c",
         "SecurityGroupIngress" : [ {
           "IpProtocol" : "tcp",
           "FromPort" : "22",
@@ -37,7 +38,7 @@
         }
       },
     },
-    
+
   "Outputs" : {
     "ChatbotIP": {
       "Description": "IP of the chatbot",
