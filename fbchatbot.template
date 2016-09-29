@@ -10,6 +10,8 @@
          "InstanceType": "t2.micro",
          "SubnetId": "subnet-214f9845",
          "SecurityGroupIds": [{"Fn::GetAtt":["BotSecurityGroup","GroupId"]}],
+         "KeyName": "fbchatbot",
+         "Tags": [{"Key":"Name", "Value":"fbchatbot"}]
      }
    },
     "BotInstanceEIP": {
@@ -48,6 +50,10 @@
     "EC2Instance": {
       "Description": "The instance created for the bot",
       "Value": {"Ref": "BotInstance"}
+    },
+    "InstanceDNS": {
+      "Description": "Public DNS of the instance",
+      "Value": {"Fn::GetAtt": ["BotInstance","PublicDnsName"]}
     }
   }
 }
