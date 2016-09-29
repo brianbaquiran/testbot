@@ -13,8 +13,18 @@
    },
     "BotInstanceEIP": {
       "Type": "AWS::EC2::EIP",
-      "Properties": {}
+      "Properties": {
+        "Domain": "vpc"
+      }
     },
+    "BotInstanceEIPAssoc": {
+      "Type": "AWS::EC2::EIPAssociation",
+      "Properties": {
+        "AllocationId": {"Fn::GetAtt": ["BotInstanceEIP", "AllocationId"]},
+        "InstanceId": {"Ref": "BotInstance"},
+      }
+    }
+
   },
   "Outputs" : {
     "ChatbotIP": {
