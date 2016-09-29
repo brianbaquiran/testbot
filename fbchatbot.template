@@ -6,5 +6,11 @@
       "Type": "AWS::EC2::EIP",
       "Properties": {}
     }
+  },
+  "Outputs" : {
+    "ChatbotIP": {
+      "Description": "IP of the chatbot",
+      "Value": {"Ref": "BotInstanceEIP"}
+    }
   }
 }
