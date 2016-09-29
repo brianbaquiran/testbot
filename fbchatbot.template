@@ -23,9 +23,21 @@
         "AllocationId": {"Fn::GetAtt": ["BotInstanceEIP", "AllocationId"]},
         "InstanceId": {"Ref": "BotInstance"},
       }
-    }
-
-  },
+    },
+    "BotSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription" : "Enable SSH access via port 22",
+        "SecurityGroupIngress" : [ {
+          "IpProtocol" : "tcp",
+          "FromPort" : "22",
+          "ToPort" : "22",
+          "CidrIp" : "0.0.0.0/0"
+          }]
+        }
+      },
+    },
+    
   "Outputs" : {
     "ChatbotIP": {
       "Description": "IP of the chatbot",
