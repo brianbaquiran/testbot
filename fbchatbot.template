@@ -2,15 +2,28 @@
   "AWSTemplateFormatVersion" : "2010-09-09",
   "Description" : "Let's gradually evolve the infrastructure for a chatbot :)",
   "Resources" : {
+    "BotInstance" : {
+     "Type" : "AWS::EC2::Instance",
+     "Properties" : {
+         "AvailabilityZone" : "ap-southeast-1a",
+         "ImageId" : "ami-7243e611",
+         "InstanceType": "t2.micro",
+         "SubnetId": "subnet-214f9845"
+     }
+   },
     "BotInstanceEIP": {
       "Type": "AWS::EC2::EIP",
       "Properties": {}
-    }
+    },
   },
   "Outputs" : {
     "ChatbotIP": {
       "Description": "IP of the chatbot",
       "Value": {"Ref": "BotInstanceEIP"}
+    },
+    "EC2Instance": {
+      "Description": "The instance created for the bot",
+      "Value": {"Ref": "BotInstance"}
     }
   }
 }
