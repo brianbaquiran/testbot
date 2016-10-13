@@ -1,4 +1,4 @@
-from flask import request, current_app
+from flask import request, current_app, make_response
 from flask_restful import Resource
 import logging, sys
 import requests
@@ -12,7 +12,7 @@ class WebHook(Resource):
         hub_challenge = request.args.get('hub.challenge','')
         if hub_challenge == '':
             return "Hello, you didn't specify a hub.challenge"
-        return hub_challenge
+        return make_response(hub_challenge)
 
     def post(self):
         data = request.get_json()
