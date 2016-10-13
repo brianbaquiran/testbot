@@ -17,6 +17,6 @@ class WebHook(Resource):
     def post(self):
         data = request.get_json()
         current_app.logger.debug(data)
-        url = "https://graph.facebook.com/v2.6/me/messages?access_token=%s" % app.config['PAGE_ACCESS_TOKEN']s
+        url = "https://graph.facebook.com/v2.6/me/messages?access_token=%s" % app.config['PAGE_ACCESS_TOKEN']
         requests.post(url, data={"recipient":{ "id":data['sender']['id']},"message":{"text":"hello, world!"}})
         return data['message']
