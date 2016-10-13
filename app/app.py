@@ -15,18 +15,19 @@ def hello_world():
         print('A value for debugging')
         return 'You POSTED!'
 
-@app.route('/webhook', methods=['GET','POST'])
-def webhook():
-    if request.method == 'GET':
-        # Facebook is validating the webhook subscription.
-        # See https://developers.facebook.com/docs/graph-api/webhooks
-        # Section: Handling Verification Requests
+class WebHook(Resource):
+    def get(self):
         hub_challenge = request.args.get('hub.challenge','')
         if hub_challenge == '':
             return "Hello, you didn't specify a hub.challenge"
         return hub_challenge
-    elif request.method == 'POST':
-        return ""
+
+    def post(self):
+        data = request.get_json()
+        return data['sender']
+
+api.add_resource(WebHook,'/webhook')
+
 
 if __name__== '__main__':
     manager.run()
