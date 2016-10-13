@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from flask.ext.script import Manager
+from flask_script import Manager
 
 
 app = Flask(__name__)
