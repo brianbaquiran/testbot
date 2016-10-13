@@ -1,8 +1,11 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
+from flask.ext.script import Manager
+
 
 app = Flask(__name__)
 api = Api(app)
+manager = Manager(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
@@ -24,3 +27,6 @@ def webhook():
         return hub_challenge
     elif request.method == 'POST':
         return ""
+
+if __name__== '__main__':
+    manager.run()
