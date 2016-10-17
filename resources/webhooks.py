@@ -1,11 +1,7 @@
 from flask import request, current_app, make_response
 from flask_restful import Resource
-import logging, sys
 import requests
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-logger.addHandler(logging.StreamHandler(sys.stdout))
+import json
 
 class WebHook(Resource):
     def get(self):
@@ -20,5 +16,9 @@ class WebHook(Resource):
         url = "https://graph.facebook.com/v2.6/me/messages?access_token=%s" % current_app.config['PAGE_ACCESS_TOKEN']
         message_data = data['entry'][0]['messaging'][0]
         sender_id = message_data['sender']['id']
-        requests.post(url, data={"recipient":{ "id":sender_id},"message":{"text":"hello, world!"}})
+        current_app.logger.debug("Sender=%s" % sender_id)
+        payload = {"recipient":{ "id":sender_id},"message":{"text":"hello, world!"}}
+        current_app.logger.debug(json.dumps(payload))
+        r=requests.post(url, json=payload)
+        current_app.logger.debug(r.text)
         return "ok"
